@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void URLify(char given[], int strLength) {
+void URLify(char *given, int strLength) {
 
     // T: O(n) for each character
     // Caveat: This is not in place, Would need to strip the string
@@ -57,7 +57,7 @@ void URLify(char given[], int strLength) {
 }
 
 int main() {
-    vector <string> test  = {"Mr John Smith  ", "hi bro", "you are cool", "i love you"};
+    vector <string> test  = {"Mr John Smith   ", "hi bro", "you are cool", "i love you"};
     char str[] = "Mr John Smith  ";
     URLify(str , 13  );
     cout << "urlify(Mr John Smith   ): " << str << endl;
