@@ -36,16 +36,15 @@ void insertNode(Node* head, Node* n) {
 
 void deleteMiddleNode(Node *mid) {
     if (!mid || !mid->next) {return;}
-    // Commented code doesn't work because the temp->next->next only contains the next's next not rest
-    // Node* temp = mid;
-    // temp->val = temp->next->val;
-    // temp->next = temp->next->next;
-    // temp->next = nullptr;
-    // delete temp->next;
-    Node *nextNode = mid->next;
-    mid->val = nextNode->val;
-    mid->next = nextNode->next;
-    delete nextNode;
+    // Problem comes from deleting mid->next because you need that value (commented out)
+    mid->val = mid->next->val;
+    mid->next = mid->next->next;
+    // delete mid->next;
+
+    // Node *nextNode = mid->next;
+    // mid->val = nextNode->val;
+    // mid->next = nextNode->next;
+    // delete nextNode;
 }
 
 int main(){
