@@ -39,6 +39,9 @@ struct SetOfStacks {
         stacks[stacks.size() - 1].pop_back();
     }
 
+    void popAt(int stackNum) {
+        stacks[stackNum].pop_back();
+    }
     bool isFull(int stackNum) {
         return stacks[stackNum].size() >= threshold;
     }
@@ -53,14 +56,10 @@ int main() {
     s->push(1);
     s->push(1);
     s->push(1);
-    s->push(1);
-    s->push(1);
-    s->push(1);
-    s->push(1);
-    s->push(1);
-    s->push(1);
-    s->push(1);
-    s->push(1);
+    s->printStacks();
+    s->pop();
+    s->printStacks();
+    s->popAt(0);
     s->printStacks();
     return 0;
 }
