@@ -14,15 +14,17 @@ struct MyQueue {
 
     void printQueue() {
         cout << "TEMP STACK: " << endl;
-        while (!temp_stack.empty()) {
-            cout << temp_stack.top() << endl;
-            temp_stack.pop();
+        stack <int> printer = temp_stack;
+        while (!printer.empty()) {
+            cout << printer.top() << endl;
+            printer.pop();
         }
 
         cout << "MAIN STACK: " << endl;
-        while (!main_stack.empty()) {
-            cout << main_stack.top() << endl;
-            main_stack.pop();
+        printer = main_stack;
+        while (!printer.empty()) {
+            cout << printer.top() << endl;
+            printer.pop();
         }
     }
     
