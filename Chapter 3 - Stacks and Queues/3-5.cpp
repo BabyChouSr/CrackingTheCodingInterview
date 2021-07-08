@@ -16,6 +16,8 @@ struct SortedStack {
             printer.pop();
         }
     }
+    // Approach, have a temp stack that has values that are less than the pushed value 
+    // Then, just store the smaller values first and the pushed value on temp and then push back to main stack
     void push(int value){
 
         // if (s.empty()) {
