@@ -1,5 +1,5 @@
 // Animal Shelter
-
+// Approach is to have separate queue for dogs and cats and then have a boolean vector keeping track of what the next oldest animal is
 #include <iostream>
 #include <queue>
 #include <string>
