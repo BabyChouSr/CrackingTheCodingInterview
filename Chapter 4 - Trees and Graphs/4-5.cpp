@@ -21,6 +21,7 @@ struct Node {
 // Space Complexity: O(h) in recursive calls which equal height of tree
 // The issue is the scope of this is insufficient, this only checks the immediate left and right, however, it is possible 
 // that the node->right > node but the node should actually be to the right of the root (check book for Min/Max Solution)
+// ! This is not correct
 int validateBST(Node* head) {
     if (head == nullptr) {return 0;}
     if (head->right != nullptr) {
