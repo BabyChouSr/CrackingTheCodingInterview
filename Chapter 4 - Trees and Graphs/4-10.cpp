@@ -92,12 +92,12 @@ bool matchTree(Node* r1, Node* r2) {
 // This function essentially constructs the subtree by recursively going to the left or right then checking 
 // if the root node of r1 is equal to root of r2 (notice that r2 is not changing at all throughout recursive calls)
 bool subTree(Node* r1, Node* r2) {
-    if (r1 == nullptr) {
+    if (r1 == nullptr) { // base case, the node is nullptr so can't serve as our root
         return false;
-    } else if (r1->val == r2->val && matchTree(r1, r2)) {
+    } else if (r1->val == r2->val && matchTree(r1, r2)) { //if roots match, then we can try to match trees
         return true;
     } 
-    return subTree(r1->left, r2) || subTree(r1->right, r2);
+    return subTree(r1->left, r2) || subTree(r1->right, r2); //return true if either the left or right node that serves as root matches
 }
 
 bool containsTree(Node* t1, Node* t2) {
