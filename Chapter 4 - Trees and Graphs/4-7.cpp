@@ -113,11 +113,12 @@ vector <Node*> buildOrder(vector<Node*> projects, vector<pair<Node*, Node*>> dep
     return built;
 }
 
+// DFS algorithm that allows us to check if dependency installed, if there is not, then call algo to check the next, then the next...
 bool getD2(Node* n, vector<Node*> & built){
     if (n->state == 'p') {return false;} // cycle detected
     if (n->state == 'b') {
         n->state = 'p';
-        vector<Node*> children = n->d;
+        vector<Node*> children = n->d; // Children = dependencies
         for (Node* child: children) {
             if (!getD2(child, built)) {
                 return false;
@@ -139,6 +140,10 @@ bool getD2(Node* n, vector<Node*> & built){
 vector <Node*> buildOrder2(vector<Node*> projects, vector<pair<Node*, Node*>> dependencies) {
     Graph* g = new Graph();
     vector <Node*> built = vector <Node*> ();
+    
+    // Creates the graph of dependencies
+    // projPair.second = project
+    // projPair.first = dependency
     for (const auto& projPair: dependencies) {
         g->insertNode(projPair.second);
         projPair.second->insertNode(projPair.first);

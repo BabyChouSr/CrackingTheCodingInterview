@@ -66,8 +66,8 @@ Node* successor(Node* head, Node* n) {
 }
 
 // ! This is correct
-// If the node n has a right subtree: return the left most node of the right subtree
-// If node n has no right subtree, go up the subtree until n is the left child of its parent
+// 1. If the node n has a right subtree: return the left most node of the right subtree
+// 2. If node n has no right subtree, go up the subtree until n is the left child of its parent
 Node* successor2(Node* head, Node* n) {
     if (n->right != nullptr) {
         Node* drill = n->right;
