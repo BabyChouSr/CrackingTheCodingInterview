@@ -150,8 +150,9 @@ struct BST {
             }
             else { // If there are two children
                 Node* temp = miniValueNode(node->right); // Gives the inorder successor
-                node->val = temp->val;
-                node->right = deleteNode(node->right, temp->val);
+                node->val = temp->val; // Copy the inorder successor value to the node value, which creates duplicate
+                node->right = deleteNode(node->right, temp->val); // Since inorder successor comes from the smallest number from right subtree, 
+                                                                        // we can delete the node from the right subtree calling this
             }
         }
         if (node == nullptr) {
@@ -214,11 +215,12 @@ struct BST {
     }
 
     // Time Complexity: O(log(N))
+    // Most important part of this function is to maintain the same probability for each node being chosen
     Node* getRandomNode2(Node* node){
         // NORMALLY WE WOULD HAVE THE SIZE STORED IN THE NODE CLASS ITSELF BUT 
         // TO SIMULATE MORE EASILY, I WROTE A SIZE() function
         srand (time(NULL));
-        int randomNumber = rand() % calcSize(node);
+        int randomNumber = rand() % calcSize(node); // [0, size of tree)
         int leftSize = left == nullptr ? 0 : calcSize(node->left);
         if (randomNumber < leftSize) {
             return getRandomNode2(node->left);
@@ -236,7 +238,7 @@ struct BST {
         } else if (index == leftSize) {
             return node;
         } else {
-            return getIthNode(node->right, index - (leftSize + 1));
+            return getIthNode(node->right, index - (leftSize + 1)); // basically forget entire left subtree + root || only care about right subtree
         }
 
     }
