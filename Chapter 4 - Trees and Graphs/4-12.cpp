@@ -56,6 +56,11 @@ int countPathsWithSumHelper(Node* node, int targetSum, int currentSum) {
 }
 
 
+// Problem with this brute force approach is that we end up having to recalculate many things since we start all over again at a certain node
+// i.e. 10 -> 5 -> -3 -> 2
+// 1. We first start with 10 as the root node and calculate 10 + 5 + -3 + 2
+// 2. We start with 5 as the root node and calculate 5 -3 + 2
+// 3. And, so on, if we could utilize a cache to retrace these steps then it would be extremely useful
 int countPathsWithSum(Node* node, int targetSum) {
     if (node == nullptr) {return 0;}
 
@@ -66,33 +71,36 @@ int countPathsWithSum(Node* node, int targetSum) {
     return pathsOnRoot + pathsOnLeft + pathsOnRight;
 }
 
+// This adds a cache to the function which makes it so we don't have to recount the previous paths for new recursive functions
+// Instead of having to recalculate each path, we can have a hash table that carries the number of paths that end at a certain target y
 int countPathsWithSumHelper2(Node* node, int targetSum, int runningSum, map<int, int>& pathCount) {
     if (node == nullptr) {return 0;}
 
     runningSum += node->val;
-    int sum = targetSum - runningSum;
+    int sum = runningSum - targetSum; // Let's say we overshot by an amount of sum = runningSum - targetSum, we could just look back to the hash table (1)
     
     auto found = pathCount.find(sum);
     int totalPaths;
     if (found != pathCount.end()) {
-        totalPaths = pathCount[sum];
+        totalPaths = pathCount[sum]; // Check if an additional path that potentially does not start at the root equals to the targetSum
     }
     else {
         totalPaths = 0;
     }
 
     if (runningSum == targetSum) {
-        totalPaths++;
+        totalPaths++; // Check if one additional path starts at the root and equals to the targetSum
     }
 
-    pathCount[runningSum]++;
+    pathCount[runningSum]++; // Since over here, we already add 1 to the frequency to see if the hashtable added the frequency (2)
 
     totalPaths +=  countPathsWithSumHelper2(node->left, targetSum, runningSum, pathCount);
     totalPaths += countPathsWithSumHelper2(node->right, targetSum, runningSum, pathCount);
     
     
     if ((pathCount[runningSum] -= 1) == 0) {
-        pathCount.erase(runningSum);
+        pathCount.erase(runningSum); // Must erase the running sum after you are done since each branch starts a new summing process (so other nodes don't use it)
+                                        // Think about this like a depth first search from left to right, the nodes to the right would not need the summing from the left (only above)
     }
 
     return totalPaths;
