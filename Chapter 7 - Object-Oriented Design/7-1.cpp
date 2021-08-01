@@ -135,9 +135,9 @@ class BlackJackHand : public Hand {
         vector<int> possibleScores() {
             vector<int> scores;
             // ! might need to fix since not working rn
-            for (BlackJackCard *card: cards) { // referring to the blackjackcard
-                addCardToList(card, scores);
-            }
+            // for (BlackJackCard *card: cards) { // referring to the blackjackcard
+            //     addCardToList(card, scores);
+            // }
             return scores;
         }
 
