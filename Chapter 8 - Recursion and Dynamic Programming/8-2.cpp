@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <unordered_set>
 
 using namespace std;
 
@@ -42,12 +43,41 @@ bool getPath(int matrix[5][5] , int row, int col, vector <Point*>& path) {
 
     }
 
+// Adding a list of failed points so that we don't have to go down that path again
+bool getPath2(int matrix[5][5] , int row, int col, vector <Point*>& path, unordered_set <Point*> & failedPoints) {
+    if (row < 0 || col < 0 || matrix[row][col] == -1) {
+        cout << matrix[row][col] << endl;
+        return false;
+    }
+
+    Point* p = new Point(row, col);
+
+    // check if the point is in the failedPoints so we don't have to have more recursive calls
+    if (failedPoints.find(p) != failedPoints.end()) {
+        return false;
+    }
+
+    bool isAtOrigin = (row == 0 && col == 0);
+
+    if (isAtOrigin || (getPath2(matrix, row, col -1, path, failedPoints) || getPath2(matrix, row - 1, col, path, failedPoints))) {
+        path.push_back(p);
+        return true;
+    }
+    
+    // cache result
+    failedPoints.insert(p);
+    return false;
+
+}
+
 vector<Point*> getPath(int matrix[5][5], int rows, int cols) {
     vector <Point*> path;
+    unordered_set <Point*> failedPoints;
 
-    if (getPath(matrix, rows - 1, cols - 1, path)) {
+    if (getPath2(matrix, rows - 1, cols - 1, path, failedPoints)) {
         return path;
     }
+
     return path;
 }
 
