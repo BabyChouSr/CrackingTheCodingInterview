@@ -45,29 +45,29 @@ bool getPath(int matrix[5][5] , int row, int col, vector <Point*>& path) {
 
 // Adding a list of failed points so that we don't have to go down that path again
 bool getPath2(int matrix[5][5] , int row, int col, vector <Point*>& path, unordered_set <Point*> & failedPoints) {
-    if (row < 0 || col < 0 || matrix[row][col] == -1) {
-        cout << matrix[row][col] << endl;
+    //Error Case (Out of Bounds)
+    if (row < 0, col < 0, matrix[row][col] == -1) {
         return false;
     }
+    //Check if the point is one of the failed ones (so we don't have to keep digging)
 
-    Point* p = new Point(row, col);
+    Point *p = new Point(row, col);
 
-    // check if the point is in the failedPoints so we don't have to have more recursive calls
-    if (failedPoints.find(p) != failedPoints.end()) {
-        return false;
+    if (failedPoints.find(p) != failedPoints.end()) { // This is a failed point
+        return false; 
     }
 
-    bool isAtOrigin = (row == 0 && col == 0);
+    bool isAtOrigin = row == 0 && col == 0;
 
-    if (isAtOrigin || (getPath2(matrix, row, col -1, path, failedPoints) || getPath2(matrix, row - 1, col, path, failedPoints))) {
+    // If this is the origin (no more paths needed) or if there is a path from here then, add as a point to Path
+    if (isAtOrigin || getPath2(matrix, row, col - 1, path, failedPoints), getPath2(matrix, row - 1, col, path, failedPoints)) {
         path.push_back(p);
         return true;
     }
-    
-    // cache result
+
+    // This is a point that doesn't work because the above conditional statement was not triggered, so add it to the cache
     failedPoints.insert(p);
     return false;
-
 }
 
 vector<Point*> getPath(int matrix[5][5], int rows, int cols) {
