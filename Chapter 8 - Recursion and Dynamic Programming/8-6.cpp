@@ -10,28 +10,13 @@ using namespace std;
 // Y = 2 Destination
 // Previously, I separated into base cases 1 and 2 and then had 3+ case, but can simplify
 void sortDisks(int N, vector <int> & src, vector <int> & temp, vector <int> & dest) {
-    if (N == 1) {
-        int back = src.back();
-        src.pop_back();
-        dest.push_back(back);
+    if (N <= 0 ) { 
         return;
-    } else if (N == 2) {
-        int first = src.back();
-        src.pop_back();
-        int second = src.back();
-        src.pop_back();
-        temp.push_back(first);
-        dest.push_back(second);
-        dest.push_back(temp.back());
-        temp.pop_back();
-        return;
-    } 
-    if (N > 2) {
-        sortDisks(N - 1, src, dest, temp);
-        dest.push_back(src.back());
-        src.pop_back();
-        sortDisks(N - 1, temp, src, dest);
     }
+    sortDisks(N - 1, src, dest, temp);
+    dest.push_back(src.back());
+    src.pop_back();
+    sortDisks(N - 1, temp, src, dest);
 }
 
 int main(){
