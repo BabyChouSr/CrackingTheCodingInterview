@@ -35,7 +35,6 @@ vector <string> permutations(vector<string> & perms, string s) {
 
 // Another approach is to build from permutations of all n - 1 character substrings
 // Check Approach 2 of CTCI 
-// ! Not Working
 vector <string> permutations2(vector <string> & perms, string remainder) {
     perms = vector <string>(); // ! Important Line or else it keeps everything from before (using references)
     int len = remainder.length();
@@ -56,7 +55,7 @@ vector <string> permutations2(vector <string> & perms, string remainder) {
 }
 
 // Sending the prefix down the stack instead of permutations up the stack
-// Doesn't work either
+// This Works
 void permutations3helper(string prefix, string remainder, vector <string> & perms) {
     if (remainder.length() == 0) {perms.push_back(prefix);}
 
@@ -75,12 +74,26 @@ vector <string> permutations3(string str) {
     return perms;
 }
 
+// Approach 4: Backtracking
+// You swap the first character with the next character, stop when there is one unprocessed element left
+// https://www.techiedelight.com/find-permutations-given-string/
+void permutations4(vector <string> & perms, string s, int i, int n) {
+    if (i == n -1) {
+        perms.push_back(s);
+        return;
+    }
 
+    for (int j = i; j < n; j++) {
+        swap(s[i], s[j]);
+        permutations(perms, s, i + 1, n);
+        swap(s[i], s[j]);
+    }
+}
 
 int main() {
     string s = "abcd";
     vector <string> perms = vector <string> ();
-    perms = permutations(perms, s);
+    perms = permutations3(s);
     for (const auto & s: perms) {
         cout << s << endl;
     }
