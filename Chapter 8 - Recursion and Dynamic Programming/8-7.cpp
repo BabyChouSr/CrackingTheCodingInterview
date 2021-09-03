@@ -85,7 +85,7 @@ void permutations4(vector <string> & perms, string s, int i, int n) {
 
     for (int j = i; j < n; j++) {
         swap(s[i], s[j]);
-        permutations(perms, s, i + 1, n);
+        permutations4(perms, s, i + 1, n);
         swap(s[i], s[j]);
     }
 }
@@ -93,7 +93,7 @@ void permutations4(vector <string> & perms, string s, int i, int n) {
 int main() {
     string s = "abcd";
     vector <string> perms = vector <string> ();
-    perms = permutations3(s);
+    permutations4(perms, s, 0, s.length());
     for (const auto & s: perms) {
         cout << s << endl;
     }

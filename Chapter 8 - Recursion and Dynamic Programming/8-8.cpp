@@ -47,7 +47,7 @@ vector <string> printPerms(string s) {
 }
 
 int main() {
-    string s = "aaaa";
+    string s = "aaaabcd";
     vector <string> perms = vector <string> ();
     perms = printPerms(s);
     // permutations(perms, s, 0, s.length());

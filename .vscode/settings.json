@@ -71,6 +71,7 @@
         "typeindex": "cpp",
         "valarray": "cpp",
         "queue": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "xstring": "cpp"
     }
 }
